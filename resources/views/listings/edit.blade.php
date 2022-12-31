@@ -138,10 +138,8 @@
             name="description"
             rows="10"
             placeholder="Include tasks, requirements, salary, etc"
-        >
-            "{{$listing->description}}"
-            </textarea
-            >
+        >{{$listing->description}}
+            </textarea>
         @error('description')
         <p class="text-red-500 text-ts mt-1">{{$message}}</p>
         @enderror
@@ -154,7 +152,7 @@
             Update Gig
         </button>
 
-        <a href="dashboard.html" class="text-black ml-4">
+        <a href="/listings/{{$listing->id}}" class="text-black ml-4">
             Back
         </a>
     </div>

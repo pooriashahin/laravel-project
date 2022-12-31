@@ -186,10 +186,9 @@ unset($__errorArgs, $__bag); ?>
             name="description"
             rows="10"
             placeholder="Include tasks, requirements, salary, etc"
-        >
-            "<?php echo e($listing->description); ?>"
-            </textarea
-            >
+        ><?php echo e($listing->description); ?>
+
+            </textarea>
         <?php $__errorArgs = ['description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -209,7 +208,7 @@ unset($__errorArgs, $__bag); ?>
             Update Gig
         </button>
 
-        <a href="dashboard.html" class="text-black ml-4">
+        <a href="/listings/<?php echo e($listing->id); ?>" class="text-black ml-4">
             Back
         </a>
     </div>
