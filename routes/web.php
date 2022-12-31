@@ -26,6 +26,8 @@ Route::get('/listings/{listing}/edit', [ListingsController::class, 'edit'])->mid
 Route::put('/listings/{listing}', [ListingsController::class, 'update'])->middleware('auth');
 Route::delete('/listings/{listing}', [ListingsController::class, 'destroy'])->middleware('auth');
 
+Route::get('/listings/manage', [ListingsController::class, 'manage'])->middleware('auth');
+
 Route::get('/listings/{listing}', [ListingsController::class, 'show']);
 
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
