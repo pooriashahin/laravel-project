@@ -16,7 +16,7 @@ class ListingsController extends Controller
 
     public function index () {
         return view('listings.index', [
-            'listings' => Listings::latest()->filter(request(['tag', 'search']))->paginate(2)
+            'listings' => Listings::latest()->filter(request(['tag', 'search']))->paginate(6)
         ]);
     }
 
@@ -24,9 +24,43 @@ class ListingsController extends Controller
         return view('listings.create');
     }
 
+    public function edit (Listings $listing) {
+        return view('listings.edit', [
+            'listing' => $listing
+        ]);
+    }
+
+    public function update (Request $request, Listings $listing) {
+        $formFields = $request->validate([
+            'title' => 'required',
+            'company' => 'required',
+            'location' => 'required',
+            'email' => ['required', 'email'],
+            'website' => 'required',
+            'tags' => 'required',
+            'description' => 'required',
+        ]);
+
+        if ($request->hasFile('logo')) {
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        $listing->update($formFields);
+
+        return back()->with('message', 'Listing Updated Successfully!');
+    }
+
+    public function destroy(Request $request, Listings $listing) {
+
+        $listing->delete();
+
+        return redirect('/')->with('message', 'Listing Deleted Successfully!');
+    }
+
     public function store (Request $request) {
 //        dd($request->all());
-        $forFields = $request->validate([
+//        dd($request->file('logo')->store('logos', 'public'));
+        $formFields = $request->validate([
             'title' => 'required',
             'company' =>['required', Rule::unique('listings', 'company')],
             'location' => 'required',
@@ -36,7 +70,11 @@ class ListingsController extends Controller
             'description' => 'required',
         ]);
 
-        Listings::create($forFields);
+        if ($request->hasFile('logo')) {
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+
+        Listings::create($formFields);
 
         return redirect('/')->with('message', 'Listing Created Successfully!');
     }

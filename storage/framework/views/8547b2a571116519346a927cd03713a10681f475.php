@@ -15,7 +15,7 @@
 <?php endif; ?>
 <?php $component->withAttributes(['class' => 'p-10']); ?>
         <div class="flex flex-col items-center justify-center text-center">
-            <img class="w-48 mr-6 mb-6" src="<?php echo e(asset('images/no-image.png')); ?>" alt=""/>
+            <img class="w-48 mr-6 mb-6" src="<?php echo e($listing->logo ? asset($listing->logo) : asset('images/no-image.png')); ?>" alt=""/>
 
             <h3 class="texxt-2xl mb-2"><?php echo e($listing->title); ?></h3>
             <div class="text-xl font-bold mb-4"><?php echo e($listing->company); ?></div>
@@ -63,6 +63,28 @@
                 </div>
             </div>
         </div>
+     <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
+<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
+<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
+<?php endif; ?>
+    <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => ['class' => 'mt-4 p-2 flex space-x-6']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('card'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'mt-4 p-2 flex space-x-6']); ?>
+        <a href="/listings/<?php echo e($listing->id); ?>/edit">
+        <i class="fa-solid fa-pencil"></i>Edit</a>
+        <form action="/listings/<?php echo e($listing->id); ?>" method="POST">
+            <?php echo csrf_field(); ?>
+            <?php echo method_field('DELETE'); ?>
+            <button class="text-red-500"><i class="fa-solid fa-trash"></i>Delete</button>
+        </form>
      <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>

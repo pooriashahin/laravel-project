@@ -16,7 +16,7 @@
             <p class="mb-4">Post a gig to find a developer</p>
         </header>
 
-        <form method="POST" action="/listings">
+        <form method="POST" action="/listings" enctype="multipart/form-data">
             <?php echo csrf_field(); ?>
             <div class="mb-6">
                 <label for="company" class="inline-block text-lg mb-2">Company Name</label>
@@ -156,16 +156,26 @@ endif;
 unset($__errorArgs, $__bag); ?>
             </div>
 
-
-
-
-
-
-
-
-
-
-
+            <div class="mb-6">
+                <label for="logo" class="inline-block text-lg mb-2">
+                    Company Logo
+                </label>
+                <input
+                    type="file"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="logo"
+                />
+                <?php $__errorArgs = ['logo'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <p class="text-red-500 text-ts mt-1"><?php echo e($message); ?></p>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+            </div>
 
             <div class="mb-6">
                 <label
