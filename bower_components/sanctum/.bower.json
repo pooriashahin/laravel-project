@@ -1,0 +1,15 @@
+{
+  "name": "sanctum",
+  "homepage": "https://github.com/laravel/sanctum",
+  "version": "3.0.1",
+  "_release": "3.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.0.1",
+    "commit": "b71e80a3a8e8029e2ec8c1aa814b999609ce16dc"
+  },
+  "_source": "https://github.com/laravel/sanctum.git",
+  "_target": "^3.0.1",
+  "_originalSource": "laravel/sanctum",
+  "_direct": true
+}

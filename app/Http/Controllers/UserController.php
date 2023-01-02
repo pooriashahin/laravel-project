@@ -21,6 +21,14 @@ class UserController extends Controller
         $formFields['password'] = bcrypt($formFields['password']);
 
         $user = User::create($formFields);
+
+        $token = $user->createToken('myToken')->plainTextToken;
+
+//        $response =[
+//            'user' => $user,
+//            'token' => $token
+//        ];
+
         auth()->login($user);
 
         return redirect('/')->with('message', 'User created and logged in');
@@ -37,6 +45,7 @@ class UserController extends Controller
         ]);
 
         if (auth()->attempt($formFields)) {
+            auth()->user()->createToken('myToken')->plainTextToken;
             $request->session()->regenerate();
 
             return redirect('/')->with('message', 'You are logged in!');
@@ -48,6 +57,8 @@ class UserController extends Controller
     public function logout(Request $request) {
 
         auth()->logout();
+//        TODO gets error on deleting null even though user has tokens. Needs a fix.
+//        auth()->user()->tokens()->delete();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

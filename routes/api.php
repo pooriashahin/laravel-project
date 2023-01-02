@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listings;
@@ -25,3 +28,18 @@ Route::get('/posts', function () {
         'data' => Listings::all()
     ]);
 });
+
+Route::post('/register',  [AuthController::class, 'register']);
+
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{product}', [ProductController::class, 'show']);
+Route::get('/products/search/{name}', [ProductController::class, 'search']);
+
+//Route::Resource('products', ProductController::class);
+
+Route::group(['middleware' => ['auth:sanctum']], function (){
+    Route::post('/products',  [ProductController::class, 'store']);
+    Route::post('/products/{id}',  [ProductController::class, 'update']);
+    Route::post('/products/{id}',  [ProductController::class, 'destroy']);
+});
+
