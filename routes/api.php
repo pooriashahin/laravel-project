@@ -37,9 +37,9 @@ Route::get('/products/search/{name}', [ProductController::class, 'search']);
 
 //Route::Resource('products', ProductController::class);
 
-Route::group(['middleware' => ['auth:sanctum']], function (){
+//Route::group(['middleware' => ['auth:sanctum']], function (){
     Route::post('/products',  [ProductController::class, 'store']);
     Route::post('/products/{id}',  [ProductController::class, 'update']);
     Route::post('/products/{id}',  [ProductController::class, 'destroy']);
-});
+//});
 

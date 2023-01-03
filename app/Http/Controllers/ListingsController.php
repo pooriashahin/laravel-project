@@ -15,6 +15,7 @@ class ListingsController extends Controller
     }
 
     public function index () {
+//        return response()->json(Listings::latest()->filter(request(['tag', 'search']))->paginate(6));
         return view('listings.index', [
             'listings' => Listings::latest()->filter(request(['tag', 'search']))->paginate(6)
         ]);

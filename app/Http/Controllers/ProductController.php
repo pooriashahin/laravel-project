@@ -25,6 +25,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+//        config(['default.database' => 'mongodb']);
         $request->validate([
             'slug' => 'required',
             'price' => 'required'
