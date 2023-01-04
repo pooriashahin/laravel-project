@@ -45,4 +45,8 @@ class User extends Authenticatable
     public function listings() {
         return $this->hasMany(Listings::class, 'user_id');
     }
+
+    public function mongoListings() {
+        return $this->hasMany(MongoListing::class, 'user_id');
+    }
 }

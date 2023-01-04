@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MongoProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,11 @@ class ProductController extends Controller
     public function index()
     {
         return Product::all();
+    }
+
+    public function indexMongoProduct()
+    {
+        return MongoProduct::all();
     }
 
     /**
@@ -31,6 +37,8 @@ class ProductController extends Controller
             'price' => 'required'
         ]);
         Product::create($request->all());
+        MongoProduct::create($request->all());
+
     }
 
     /**

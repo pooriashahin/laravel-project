@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listings;
+use App\Models\MongoListing;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -18,6 +19,13 @@ class ListingsController extends Controller
 //        return response()->json(Listings::latest()->filter(request(['tag', 'search']))->paginate(6));
         return view('listings.index', [
             'listings' => Listings::latest()->filter(request(['tag', 'search']))->paginate(6)
+        ]);
+    }
+
+    public function indexMongoListing () {
+//        return response()->json(MongoListing::latest()->filter(request(['tag', 'search']))->paginate(6));
+        return view('listings.index', [
+            'listings' => MongoListing::latest()->filter(request(['tag', 'search']))->paginate(6)
         ]);
     }
 
@@ -55,7 +63,9 @@ class ListingsController extends Controller
         if ($request->hasFile('logo')) {
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
+        $mongoListing = MongoListing::where('listing_id', '=' , $listing->id)->firstOrFail();
 
+        $mongoListing->update($formFields);
         $listing->update($formFields);
 
         return back()->with('message', 'Listing Updated Successfully!');
@@ -65,6 +75,10 @@ class ListingsController extends Controller
         if(auth()->id() != $listing->user_id) {
             abort(403, 'Unauthorized action');
         }
+
+        $mongoListing = MongoListing::where('listing_id', '=' , $listing->id)->firstOrFail();
+
+        $mongoListing->delete();
         $listing->delete();
 
         return redirect('/')->with('message', 'Listing Deleted Successfully!');
@@ -88,7 +102,9 @@ class ListingsController extends Controller
 
         $formFields['user_id'] = auth()->id();
 
-        Listings::create($formFields);
+        $listing = Listings::create($formFields);
+        $formFields['listing_id'] = $listing->id;
+        MongoListing::create($formFields);
 
         return redirect('/')->with('message', 'Listing Created Successfully!');
     }

@@ -18,6 +18,7 @@ use App\Models\Listings;
 */
 
 Route::get('/', [ListingsController::class, 'index']);
+Route::get('/mongo', [ListingsController::class, 'indexMongoListing']);
 
 Route::get('/listings/create', [ListingsController::class, 'create'])->middleware('auth');
 Route::post('/listings', [ListingsController::class, 'store']);
