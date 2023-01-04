@@ -95,7 +95,7 @@ return [
 
         'mongodb' => [
             'driver' => 'mongodb',
-            'dsn' => env('MONGO_DB_URL', 'mongodb+srv://pooria:Dentaldeal6@cluster0.xqz3lyg.mongodb.net/?retryWrites=true&w=majority'),
+            'dsn' => env('MONGO_DB_URL'),
             'port' => env('MONGO_DB_PORT', '27017'),
             'database' => env('MONGO_DB_DATABASE', 'test'),
         ],
